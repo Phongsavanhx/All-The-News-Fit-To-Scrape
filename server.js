@@ -29,6 +29,17 @@ app.set('view engine', 'handlebars');
 var routes = require("./controllers/controller.js");
 app.use("/", routes);
 
+mongoose.connect("mongodb://heroku_rx3m22t9@ds149875.mlab.com:49875/heroku_rx3m22t9");
+var db = mongoose.connection;
+
+db.on("error", function(error) {
+  console.log("Mongoose Error: ", error);
+});
+
+db.once("open", function() {
+  console.log("Mongoose connection successful.");
+});
+
 app.listen(PORT, function() {
   console.log("App running on PORT " + PORT);
 });
